@@ -9,7 +9,7 @@ module.exports = {
 
     output: {
         filename: "[name]-bundle.js",
-        path: __dirname
+        path: __dirname + '/dist/'
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -36,7 +36,16 @@ module.exports = {
                     }
                 ]
             },
-
+            {
+                test: /\.scss$/,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "sass-loader" // compiles Sass to CSS
+                }]
+            },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
@@ -58,6 +67,13 @@ module.exports = {
     },
     plugins: [
         new webpack.ProvidePlugin({ jQuery: 'jquery', $: 'jquery', jquery: 'jquery' }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            minChunks: function (module) {
+                // this assumes your vendor imports exist in the node_modules directory
+                return module.context && module.context.includes("node_modules");
+            }
+        })
     ],
     devServer: {
         host: 'localhost',
