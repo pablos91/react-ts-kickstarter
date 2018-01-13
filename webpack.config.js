@@ -1,6 +1,16 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var webpackShimConfig = {
+    // Remember: Only use shim config for incompatible libraries
+    // the libraries below are just examples, regardless whether they are compatible or not
+    shim: {
+        'jquery': {
+            exports: 'jQuery' // Once loaded, use the global 'jQuery' as the module value.
+        }
+    }
+};
+
 module.exports = {
     entry: {
         index: "./index.tsx",
@@ -9,7 +19,8 @@ module.exports = {
 
     output: {
         filename: "[name]-bundle.js",
-        path: __dirname + '/dist/'
+        path: __dirname + '/dist/',
+        libraryTarget: 'window'
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -62,6 +73,13 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: require.resolve('jquery'),
+                use: [{
+                    loader: 'expose-loader',
+                    options: '$'
+                }]
             }
         ]
     },
@@ -78,5 +96,5 @@ module.exports = {
     devServer: {
         host: 'localhost',
         port: 3009
-    },
+    }
 };
