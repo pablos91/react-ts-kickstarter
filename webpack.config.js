@@ -96,23 +96,17 @@ module.exports = function (env) {
         ]
     },
     plugins: [
+        new webpack.ProvidePlugin({ jQuery: 'jquery', $: 'jquery', jquery: 'jquery' }),
+        new ExtractTextPlugin("[name].css"),
         new InjectHtmlPlugin({
             filename:'./index.html',
-            chunks:['vendor','index'],
+            processor: path.resolve(__dirname + '/dist/'),
+            chunks:['index'],
             customInject:[{
                 start:'<!-- start:bundle-time -->',
                 end:'<!-- end:bundle-time -->',
                 content:Date.now()
             }]
-        }),
-        new webpack.ProvidePlugin({ jQuery: 'jquery', $: 'jquery', jquery: 'jquery' }),
-        new ExtractTextPlugin("[name].css"),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            minChunks: function (module) {
-                // this assumes your vendor imports exist in the node_modules directory
-                return module.context && module.context.includes("node_modules");
-            }
         })
     ],
     devServer: {
