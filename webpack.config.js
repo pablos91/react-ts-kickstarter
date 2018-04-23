@@ -1,25 +1,28 @@
 var path = require('path');
 var webpack = require('webpack');
+var InjectHtmlPlugin = require('inject-html-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var webpackShimConfig = {
-    // Remember: Only use shim config for incompatible libraries
-    // the libraries below are just examples, regardless whether they are compatible or not
-    shim: {
-        'jquery': {
-            exports: 'jQuery' // Once loaded, use the global 'jQuery' as the module value.
-        }
+var production = false;
+
+module.exports = function (env) { 
+    
+    if (typeof(env) != 'undefined')
+    {
+        console.log (env);
+        production = env.prod;
     }
-};
+    
+    return {
 
-module.exports = {
+
     entry: {
-        index: "./index.tsx",
-        othersite: "./othersite.tsx"
+        index: "./src/app.tsx"
     },
 
     output: {
         filename: "[name]-bundle.js",
-        path: __dirname + '/dist/',
+        path: path.resolve(__dirname + '/dist/'),
         libraryTarget: 'window'
     },
 
@@ -48,20 +51,26 @@ module.exports = {
                 ]
             },
             {
-                test: /\.scss$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "sass-loader" // compiles Sass to CSS
-                }]
-            },
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-            {
-                test: /\.css$/,
-                loaders: ['style-loader', 'css-loader'],
+                test: /\.(css|scss)$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [{
+                        loader: "css-loader", options: {
+                            sourceMap: !production
+                        },
+                    },
+                    {
+                        loader: "postcss-loader", options: {
+                            sourceMap: !production
+                        },
+                    },
+                    {
+                        loader: "sass-loader", options: {
+                            sourceMap: !production
+                        }
+                    }]
+
+                })
             },
             {
                 test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
@@ -87,7 +96,17 @@ module.exports = {
         ]
     },
     plugins: [
+        new InjectHtmlPlugin({
+            filename:'./index.html',
+            chunks:['vendor','index'],
+            customInject:[{
+                start:'<!-- start:bundle-time -->',
+                end:'<!-- end:bundle-time -->',
+                content:Date.now()
+            }]
+        }),
         new webpack.ProvidePlugin({ jQuery: 'jquery', $: 'jquery', jquery: 'jquery' }),
+        new ExtractTextPlugin("[name].css"),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
             minChunks: function (module) {
@@ -100,4 +119,4 @@ module.exports = {
         host: 'localhost',
         port: 3009
     }
-};
+}}
