@@ -100,12 +100,11 @@ module.exports = function (env) {
         new ExtractTextPlugin("[name].css"),
         new InjectHtmlPlugin({
             filename:'./index.html',
-            processor: path.resolve(__dirname + '/dist/'),
             chunks:['index'],
             customInject:[{
-                start:'<!-- start:bundle-time -->',
-                end:'<!-- end:bundle-time -->',
-                content:Date.now()
+                start:'<!-- start:build -->',
+                end:'<!-- end:build -->',
+                content: (production) ? '<!-- PRODUCTION BUILD -->' : '<!-- DEVELOPMENT BUILD -->'
             }]
         })
     ],
