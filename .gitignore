@@ -1,6 +1,5 @@
 node_modules
-content
 *bundle*
 package-lock.json
-.tmp
-release
+tmp
+dist
