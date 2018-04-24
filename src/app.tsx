@@ -1,11 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
-import {} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
-import IndexPage from './pages';
+import MasterPage from './pages/master';
 
 ReactDOM.render(
-    <IndexPage/>,
+  <BrowserRouter>
+    <MasterPage/>
+  </BrowserRouter>,
   document.getElementById('root') as HTMLElement
 );

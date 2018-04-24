@@ -1,9 +1,13 @@
 var path = require('path');
 var webpack = require('webpack');
-var InjectHtmlPlugin = require('inject-html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var production = false;
+
+var getOutputPath = () => {
+    return (production) ? path.resolve(__dirname, 'dist') : path.resolve(__dirname, 'tmp');
+}
 
 module.exports = function (env) { 
     
@@ -21,13 +25,13 @@ module.exports = function (env) {
     },
 
     output: {
-        filename: "[name]-bundle.js",
-        path: path.resolve(__dirname + '/dist/'),
+        filename: "[name].js",
+        path: getOutputPath(),
         libraryTarget: 'window'
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
+    devtool: (production) ? false : "source-map",
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
@@ -98,17 +102,15 @@ module.exports = function (env) {
     plugins: [
         new webpack.ProvidePlugin({ jQuery: 'jquery', $: 'jquery', jquery: 'jquery' }),
         new ExtractTextPlugin("[name].css"),
-        new InjectHtmlPlugin({
-            filename:'./index.html',
-            chunks:['index'],
-            customInject:[{
-                start:'<!-- start:build -->',
-                end:'<!-- end:build -->',
-                content: (production) ? '<!-- PRODUCTION BUILD -->' : '<!-- DEVELOPMENT BUILD -->'
-            }]
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'src/tpl/index.html',
+            minify: production,
+            hash: production
         })
     ],
     devServer: {
+        contentBase: path.join(__dirname, 'tmp'),
         host: 'localhost',
         port: 3009
     }
