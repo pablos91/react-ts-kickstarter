@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "clear && webpack-dev-server && exit 0",
-    "build": "clear && webpack -p --env.prod && exit 0"
+    "start": "webpack-dev-server",
+    "build": "webpack -p --env.prod"
   },
   "author": "",
   "license": "ISC",
@@ -32,7 +32,7 @@
     "ts-loader": "^3.2.0",
     "typescript": "^2.6.2",
     "webpack": "^2.7.0",
-    "webpack-dev-server": "^2.10.1",
+    "webpack-dev-server": "2.11.1",
     "autoprefixer": "^7.2.5",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

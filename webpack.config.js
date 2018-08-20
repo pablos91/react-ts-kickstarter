@@ -111,7 +111,6 @@ module.exports = function (env) {
     ],
     devServer: {
         contentBase: path.join(__dirname, 'tmp'),
-        host: 'localhost',
-        port: 3009
+        historyApiFallback: true
     }
 }}
