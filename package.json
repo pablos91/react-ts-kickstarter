@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p --env.prod"
+    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "build": "node node_modules/webpack/bin/webpack.js -p --env.prod"
   },
   "author": "",
   "license": "ISC",

@@ -5,11 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "firefox",
+            "request": "attach",
+            "name": "Attach Firefox",
+            "port": 6000,
+            "url": "http://localhost:5000/",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": "server"
+        },
+        {
             "name": "Attach Chrome",
             "type": "chrome",
             "request": "attach",
             "port": 9222,
-            "url": "http://localhost:5000",
+            "url": "http://localhost:5000/",
             "webRoot": "${workspaceFolder}",
             "sourceMaps": true,
             "sourceMapPathOverrides": {
