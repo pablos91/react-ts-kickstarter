@@ -119,7 +119,8 @@ module.exports = function (env) {
             filename: 'index.html',
             template: 'src/tpl/index.html',
             minify: production,
-            hash: production
+            hash: production,
+            title: 'React.TS Kickstarter (change me)'
         })
     ],
     devServer: {
