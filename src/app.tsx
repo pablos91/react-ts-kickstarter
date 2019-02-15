@@ -6,6 +6,10 @@ import MasterPage from './pages/master';
 import 'semantic-ui-css/semantic.min.css';
 import './scss/main.scss';
 
+declare global {
+  var REACT_APP_API_URL:string;
+}
+
 ReactDOM.render(
   <BrowserRouter>
     <MasterPage/>

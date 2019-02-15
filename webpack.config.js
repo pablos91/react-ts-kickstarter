@@ -4,21 +4,34 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var production = false;
+var stage = false;
+var environment = 'development';
 
 var getOutputPath = () => {
-    return (production) ? path.resolve(__dirname, 'dist') : path.resolve(__dirname, 'tmp');
+    return (production) ? path.resolve(__dirname, 'dist') : (stage) ? path.resolve(__dirname, 'stage') : path.resolve(__dirname, 'tmp');
+}
+
+var API_URL = {
+    production: JSON.stringify('https://maple.com.pl'),
+    stage: JSON.stringify('https://test.maple.com.pl'),
+    development: JSON.stringify('http://localhost:63155')
 }
 
 module.exports = function (env) { 
+
+    
     
     if (typeof(env) != 'undefined')
     {
         console.log (env);
         production = env.prod;
+        stage = env.stage;
+        environment = env.stage ? 'stage' : 'production';
     }
     
     return {
 
+    mode: environment,
 
     entry: {
         index: "./src/app.tsx"
@@ -31,7 +44,7 @@ module.exports = function (env) {
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: (production) ? false : "source-map",
+    devtool: (production || stage) ? false : "source-map",
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
@@ -106,7 +119,8 @@ module.exports = function (env) {
             filename: 'index.html',
             template: 'src/tpl/index.html',
             minify: production,
-            hash: production
+            hash: production,
+            title: 'React.TS Kickstarter (change me)'
         })
     ],
     devServer: {
