@@ -28,7 +28,7 @@ const MasterPage = () => {
         <Route path="/" exact component={IndexPage} />
         <Route path="/otherpage" component={OtherPage} />
 
-        <button onClick={() => context.changeColor}>Toggle color!</button>
+        <button onClick={context.changeColor}>Toggle color!</button>
       </div>
     </GlobalProvider>
 
