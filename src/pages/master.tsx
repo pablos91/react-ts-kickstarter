@@ -1,38 +1,28 @@
 import * as React from 'react';
 import { Route, NavLink } from 'react-router-dom';
 import IndexPage from '.';
-import { Menu, Icon } from 'semantic-ui-react';
 import OtherPage from './othersite';
-import { GlobalProvider, GlobalContext } from '../context/global';
+import { observer } from 'mobx-react-lite';
+import Store from '../context/global'
 
-
-const MasterPage = () => {
-  const context = React.useContext(GlobalContext)
+const MasterPage = observer(() => {
+  const { color, changeColor } = React.useContext(Store);
 
   return (
-    <GlobalProvider>
-      <div>
-        <header>
-          <Menu color={context.color} icon inverted>
-            <Menu.Item link>
-              <Icon name='bars' />&nbsp;React Typescript Sass Router
-              </Menu.Item>
-            <Menu.Item name='homepage' exact link as={NavLink} to="/">
-              Strona główna
-              </Menu.Item>
-            <Menu.Item name='otherpage' link as={NavLink} to="/otherpage">
-              Inna strona
-              </Menu.Item>
-          </Menu>
-        </header>
-        <Route path="/" exact component={IndexPage} />
-        <Route path="/otherpage" component={OtherPage} />
+    <div>
+      <header style={{ "background": color }}>
 
-        <button onClick={context.changeColor}>Toggle color!</button>
-      </div>
-    </GlobalProvider>
+        <NavLink to="/"> Strona główna </NavLink>
+        <NavLink to="/otherpage"> Inna strona </NavLink>
+
+      </header>
+      <Route path="/" exact component={IndexPage} />
+      <Route path="/otherpage" component={OtherPage} />
+
+      <button onClick={changeColor}>Toggle color!</button>
+    </div>
 
   )
-}
+})
 
 export default MasterPage;

@@ -1,33 +1,15 @@
-import * as React from 'react';
+import { observable } from "mobx";
+import { createContext } from "react";
 
-const defaults = {
-    color: "red",
-    changeColor: () => { }
+class Store {
+    @observable color = "#007bff";
+
+    changeColor = () => {
+        if(this.color == "#007bff")
+            this.color = "#28a745"
+        else
+            this.color = "#007bff"
+    }
 }
 
-export const GlobalContext = React.createContext(defaults);
-
-export const GlobalProvider = ({ children }: any) => {
-
-    const [global, setGlobal] = React.useState(defaults);
-
-    React.useEffect(() => {
-        console.log("mounted");
-    }, []);
-
-    const value = {
-        color: global.color,
-        changeColor: () => {
-            console.log("color");
-            const color = global.color;
-            const newColor = color == "red" ? "blue" : "red";
-
-            setGlobal({
-                ...global,
-                color: newColor
-            })
-        }
-    };
-
-    return (<GlobalContext.Provider value= { value } > { children } </GlobalContext.Provider>);
-}
+export default createContext(new Store())
