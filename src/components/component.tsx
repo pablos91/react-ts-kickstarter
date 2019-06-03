@@ -1,12 +1,11 @@
 import * as React from 'react';
 
-class SimpleComponent extends React.Component {
-  render() {
-
-    return (
-      <main>Jakiś komponent</main>
-    );
-  }
+const SimpleComponent = () => {
+  return(
+    <div>
+      Komponent
+    </div>
+  )
 }
 
 export default SimpleComponent;
