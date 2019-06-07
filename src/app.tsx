@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {BrowserRouter, HashRouter} from 'react-router-dom';
 import MasterPage from './pages/master';
+import "../i18n.ts";
 
 import './scss/main.scss';
 

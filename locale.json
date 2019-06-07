@@ -1,0 +1,12 @@
+{
+    "en": {
+      "translations": {
+        "welcome": "Hello World!"
+      }
+    },
+    "pl": {
+      "translations": {
+        "welcome": "Witaj świecie!"
+      }
+    }
+  }

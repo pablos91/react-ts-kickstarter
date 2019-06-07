@@ -1,7 +1,7 @@
 import { observable } from "mobx";
 import { createContext } from "react";
 
-class Store {
+class GlobalContext {
     @observable color = "#007bff";
 
     changeColor = () => {
@@ -12,4 +12,4 @@ class Store {
     }
 }
 
-export default createContext(new Store())
+export default createContext(new GlobalContext())
