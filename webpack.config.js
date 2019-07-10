@@ -17,120 +17,108 @@ var API_URL = {
     development: JSON.stringify('http://localhost:63155')
 }
 
-module.exports = function (env) { 
+module.exports = function (env) {
 
-    
-    
-    if (typeof(env) != 'undefined')
-    {
-        console.log (env);
+    if (typeof (env) != 'undefined') {
         production = env.prod;
         stage = env.stage;
         environment = env.stage ? 'stage' : 'production';
+        console.log(`Starting ${environment} build ...`);
+    } else {
+        console.log(`Starting development server ...`);
     }
-    
+
     return {
 
-    mode: environment,
+        mode: environment,
 
-    entry: {
-        index: "./src/app.tsx"
-    },
+        entry: {
+            index: "./src/app.tsx"
+        },
 
-    output: {
-        filename: "[name].js",
-        path: getOutputPath(),
-        libraryTarget: 'window'
-    },
+        output: {
+            filename: "[name].js",
+            path: getOutputPath(),
+            libraryTarget: 'window'
+        },
 
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: (production || stage) ? false : "source-map",
+        // Enable sourcemaps for debugging webpack's output.
+        devtool: (production || stage) ? false : "source-map",
 
-    resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".ts", ".tsx", ".js", ".json"]
-    },
+        resolve: {
+            // Add '.ts' and '.tsx' as resolvable extensions.
+            extensions: [".ts", ".tsx", ".js", ".json"]
+        },
 
-    module: {
-        rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            {
-                test: /\.tsx?$/,
-                use: [
-                    {
-                        loader: 'ts-loader',
-                        options: {
-                            transpileOnly: true,
-                            logInfoToStdOut: true,
-                            logLevel: 'info'
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    use: [
+                        {
+                            loader: 'ts-loader',
+                            options: {
+                                transpileOnly: true,
+                                logInfoToStdOut: true,
+                                logLevel: 'info'
+                            }
                         }
-                    }
-                ]
-            },
-            {
-                test: /\.(css|scss)$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [{
-                        loader: "css-loader", options: {
-                            sourceMap: !production
+                    ]
+                },
+                {
+                    test: /\.(css|scss)$/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: [{
+                            loader: "css-loader", options: {
+                                sourceMap: !production
+                            },
                         },
-                    },
-                    {
-                        loader: "postcss-loader", options: {
-                            sourceMap: !production
+                        {
+                            loader: "postcss-loader", options: {
+                                sourceMap: !production
+                            },
                         },
-                    },
-                    {
-                        loader: "sass-loader", options: {
-                            sourceMap: !production
-                        }
-                    }]
+                        {
+                            loader: "sass-loader", options: {
+                                sourceMap: !production
+                            }
+                        }]
 
-                })
-            },
-            {
-                test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: './content/'
+                    })
+                },
+                {
+                    test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                            options: {
+                                outputPath: './content/'
+                            }
                         }
-                    }
-                ]
-            },
-            {
-                test: require.resolve('jquery'),
-                use: [{
-                    loader: 'expose-loader',
-                    options: 'jQuery'
-                },{
-                    loader: 'expose-loader',
-                    options: '$'
-                }]
-            }
-        ]
-    },
-    plugins: [
-        new webpack.ProvidePlugin({ jQuery: 'jquery', $: 'jquery', jquery: 'jquery' }),
-        new ExtractTextPlugin("[name].css"),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'src/tpl/index.html',
-            minify: production,
-            hash: production,
-            title: 'React.TS Kickstarter (change me)'
-        }),
-        new webpack.DefinePlugin({
-            'REACT_APP_API_URL': API_URL[environment]
-        })
-    ],
-    devServer: {
-        contentBase: path.join(__dirname, 'tmp'),
-        host: 'localhost',
-        port: 5000,
-        historyApiFallback: true,
-        open: 'http://localhost:5000'
+                    ]
+                }
+            ]
+        },
+        plugins: [
+            new ExtractTextPlugin("[name].css"),
+            new HtmlWebpackPlugin({
+                filename: 'index.html',
+                template: 'src/tpl/index.html',
+                minify: production,
+                hash: production,
+                title: 'React.TS Kickstarter (change me)'
+            }),
+            new webpack.DefinePlugin({
+                'REACT_APP_API_URL': API_URL[environment]
+            })
+        ],
+        devServer: {
+            contentBase: path.join(__dirname, 'tmp'),
+            host: 'localhost',
+            port: 5000,
+            historyApiFallback: true,
+            open: 'http://localhost:5000'
+        }
     }
-}}
+}

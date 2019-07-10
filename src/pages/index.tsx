@@ -11,7 +11,7 @@ const IndexPage = () => {
     <div>
       <h1>{t('welcome')}</h1>
       <SimpleComponent />
-
+      API Address: {REACT_APP_API_URL}
     </div>
   )
 }
