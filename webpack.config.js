@@ -121,6 +121,9 @@ module.exports = function (env) {
             minify: production,
             hash: production,
             title: 'React.TS Kickstarter (change me)'
+        }),
+        new webpack.DefinePlugin({
+            'REACT_APP_API_URL': API_URL[environment]
         })
     ],
     devServer: {
