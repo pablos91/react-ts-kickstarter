@@ -1,7 +1,7 @@
-var path = require('path');
+, var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 var production = false;
 var stage = false;
@@ -39,7 +39,7 @@ module.exports = function (env) {
         output: {
             filename: "[name].js",
             path: getOutputPath(),
-            libraryTarget: 'window'
+            jsonpFunction: 'customJsonp',
         },
 
         // Enable sourcemaps for debugging webpack's output.
@@ -47,11 +47,15 @@ module.exports = function (env) {
 
         resolve: {
             // Add '.ts' and '.tsx' as resolvable extensions.
-            extensions: [".ts", ".tsx", ".js", ".json"]
+            extensions: [".ts", ".tsx", ".js", ".json"],
+            alias: {
+                'react-dom': '@hot-loader/react-dom'
+            }
         },
 
         module: {
             rules: [
+                // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
                 {
                     test: /\.tsx?$/,
                     use: [
@@ -67,9 +71,15 @@ module.exports = function (env) {
                 },
                 {
                     test: /\.(css|scss)$/,
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: [{
+                    use: [
+                        'css-hot-loader',
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: {
+                                hmr: !production,
+                            }
+                        },
+                        {
                             loader: "css-loader", options: {
                                 sourceMap: !production
                             },
@@ -84,8 +94,6 @@ module.exports = function (env) {
                                 sourceMap: !production
                             }
                         }]
-
-                    })
                 },
                 {
                     test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
@@ -100,8 +108,26 @@ module.exports = function (env) {
                 }
             ]
         },
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    vendors: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all'
+                    },
+                    commons: {
+                        name: 'commons',
+                        chunks: 'initial',
+                        minChunks: 2
+                    }
+                }
+            }
+        },
         plugins: [
-            new ExtractTextPlugin("[name].css"),
+            new MiniCssExtractPlugin({
+                filename: `[name].css`
+            }),
             new HtmlWebpackPlugin({
                 filename: 'index.html',
                 template: 'src/tpl/index.html',
@@ -116,6 +142,7 @@ module.exports = function (env) {
         devServer: {
             contentBase: path.join(__dirname, 'tmp'),
             host: 'localhost',
+            hot: true,
             port: 5000,
             historyApiFallback: true,
             open: 'http://localhost:5000'
