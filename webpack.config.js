@@ -133,7 +133,8 @@ module.exports = function (env) {
                 template: 'src/tpl/index.html',
                 minify: production,
                 hash: production,
-                title: 'React.TS Kickstarter (change me)'
+                title: 'React.TS Kickstarter (change me)',
+                chunks: ["vendors", "commons", "index"]
             }),
             new webpack.DefinePlugin({
                 'REACT_APP_API_URL': API_URL[environment]
