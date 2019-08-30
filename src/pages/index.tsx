@@ -1,21 +1,32 @@
-import "regenerator-runtime/runtime";
-import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
-import SimpleComponent from '../components/component';
-import { useTranslation, Trans } from "react-i18next";
-import i18n from "i18next";
+import * as ReactDOM from 'react-dom';
+import { Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import Store from '../contexts/global'
+import "../../i18n.ts";
+import { NavHeader } from '../components/shared/header';
+import MainPage from '../components/index/main';
 
-const IndexPage = hot(() => {
+declare global {
+  var REACT_APP_API_URL: string;
+}
 
-  const { t, i18n } = useTranslation();
+const IndexPage = observer(() => {
+  const { color, changeColor } = React.useContext(Store);
 
   return (
-    <div>
-      <h1>{t('welcome')}</h1>
-      <SimpleComponent />
-      API Address: {REACT_APP_API_URL}
-    </div>
+    <HashRouter>
+      <NavHeader color={color}/>
+
+      <Route path="/" exact component={MainPage} />
+
+      <button onClick={changeColor}>Toggle color!</button>
+
+    </HashRouter>
   )
 })
 
-export default IndexPage;
+ReactDOM.render(
+  <IndexPage />,
+  document.getElementById('root') as HTMLElement
+);

@@ -33,7 +33,8 @@ module.exports = function (env) {
         mode: environment,
 
         entry: {
-            index: "./src/app.tsx"
+            index: "./src/pages/index.tsx",
+            otherpage: "./src/pages/othersite.tsx",
         },
 
         output: {
@@ -111,15 +112,11 @@ module.exports = function (env) {
         optimization: {
             splitChunks: {
                 cacheGroups: {
-                    vendors: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: 'vendors',
-                        chunks: 'all'
-                    },
                     commons: {
                         name: 'commons',
                         chunks: 'initial',
-                        minChunks: 2
+                        minChunks: 2,
+                        priority: 10
                     }
                 }
             }
@@ -136,8 +133,16 @@ module.exports = function (env) {
                 template: 'src/tpl/index.html',
                 minify: production,
                 hash: production,
-                title: 'React.TS Kickstarter (change me)',
+                title: 'Index',
                 chunks: ["vendors", "commons", "index"]
+            }),
+            new HtmlWebpackPlugin({
+                filename: 'otherpage.html',
+                template: 'src/tpl/index.html',
+                minify: production,
+                hash: production,
+                title: 'Othersite',
+                chunks: ["vendors", "commons", "otherpage"]
             }),
             new webpack.DefinePlugin({
                 'REACT_APP_API_URL': API_URL[environment]
