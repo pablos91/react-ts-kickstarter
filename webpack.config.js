@@ -128,6 +128,9 @@ module.exports = function (env) {
             new MiniCssExtractPlugin({
                 filename: `[name].css`
             }),
+            new webpack.ProvidePlugin({
+                Promise: "bluebird"
+            }),
             new HtmlWebpackPlugin({
                 filename: 'index.html',
                 template: 'src/tpl/index.html',
