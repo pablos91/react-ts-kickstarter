@@ -39,7 +39,7 @@ module.exports = function (env) {
 
         entry: {
             index: "./src/pages/index.tsx",
-            otherpage: "./src/pages/othersite.tsx",
+            otherpage: "./src/pages/othersite.tsx"
         },
 
         output: {
@@ -163,6 +163,7 @@ module.exports = function (env) {
                     events: true,
                     navigateFallbackURL: '/',
                 },
+                AppCache: false
             })
         ],
         devServer: {
