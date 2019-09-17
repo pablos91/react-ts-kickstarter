@@ -9,7 +9,7 @@ import "../../i18n.ts";
 import { NavHeader } from '../components/shared/header';
 import MainPage from '../components/index/main';
 OfflinePluginRuntime.install({
-  onUpdateReady: () => OfflinePluginRuntime.applyUpdate()
+  onUpdateReady: () => { OfflinePluginRuntime.applyUpdate(); console.log('[SW] app updated'); }
 });
 
 declare global {
@@ -25,7 +25,7 @@ const IndexPage = hot(observer(() => {
 
       <Route path="/" exact component={MainPage} />
 
-      <button onClick={changeColor}>Toggle color!</button>
+      <button onClick={changeColor}>Toggle color!!!!!!!!!!</button>
 
     </HashRouter>
   )

@@ -10,7 +10,7 @@ import "../../i18n.ts";
 import { NavHeader } from '../components/shared/header';
 import SimpleComponent from '../components/shared/component';
 OfflinePluginRuntime.install({
-  onUpdateReady: () => OfflinePluginRuntime.applyUpdate()
+  onUpdateReady: () => { OfflinePluginRuntime.applyUpdate(); console.log('[SW] app updated'); }
 });
 
 declare global {
