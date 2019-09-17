@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var OfflinePlugin = require('offline-plugin');
 
 var production = false;
 var stage = false;
@@ -146,6 +147,9 @@ module.exports = function (env) {
             }),
             new webpack.DefinePlugin({
                 'REACT_APP_API_URL': API_URL[environment]
+            }),
+            new OfflinePlugin({
+                responseStrategy: 'cache-first'
             })
         ],
         devServer: {
