@@ -8,7 +8,9 @@ import Store from '../contexts/global'
 import "../../i18n.ts";
 import { NavHeader } from '../components/shared/header';
 import MainPage from '../components/index/main';
-OfflinePluginRuntime.install();
+OfflinePluginRuntime.install({
+  onUpdateReady: () => OfflinePluginRuntime.applyUpdate()
+});
 
 declare global {
   var REACT_APP_API_URL: string;

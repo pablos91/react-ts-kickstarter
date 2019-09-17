@@ -6,10 +6,11 @@
   "scripts": {
     "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "build": "node node_modules/webpack/bin/webpack.js -p --env.prod",
+    "electron-build": "node node_modules/webpack/bin/webpack.js -p --env.prod --env.electron",
     "stage": "node node_modules/webpack/bin/webpack.js -p --env.stage",
     "electron:serve": "electron . --serve",
-    "electron:win64": "npm run build && electron-builder build --windows --x64",
-    "electron:mac": "npm run build && electron-builder build --mac"
+    "electron:win64": "npm run electron-build && electron-builder build --windows --x64",
+    "electron:mac": "npm run electron-build && electron-builder build --mac"
   },
   "author": "",
   "license": "ISC",

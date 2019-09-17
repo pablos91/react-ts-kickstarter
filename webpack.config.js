@@ -6,6 +6,7 @@ var OfflinePlugin = require('offline-plugin');
 
 var production = false;
 var stage = false;
+var electron = false;
 var environment = 'development';
 
 var getOutputPath = () => {
@@ -13,16 +14,18 @@ var getOutputPath = () => {
 }
 
 var API_URL = {
-    production: JSON.stringify('https://maple.com.pl'),
-    stage: JSON.stringify('https://test.maple.com.pl'),
+    production: JSON.stringify('/api'),
+    stage: JSON.stringify('/api'),
     development: JSON.stringify('http://localhost:63155')
 }
 
 module.exports = function (env) {
+    console.log(env);
 
     if (typeof (env) != 'undefined') {
         production = env.prod;
         stage = env.stage;
+        electron = env.electron;
         environment = env.stage ? 'stage' : 'production';
         console.log(`Starting ${environment} build ...`);
     } else {
@@ -31,6 +34,7 @@ module.exports = function (env) {
 
     return {
 
+        target: electron ? 'electron-renderer' : 'web',
         mode: environment,
 
         entry: {
@@ -153,7 +157,12 @@ module.exports = function (env) {
                 appShell: '/',
                 externals: [
                     '/'
-                ]
+                ],
+                autoUpdate: 1000 * 60 * 2,
+                ServiceWorker: {
+                    events: true,
+                    navigateFallbackURL: '/',
+                },
             })
         ],
         devServer: {

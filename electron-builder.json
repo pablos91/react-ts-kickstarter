@@ -6,20 +6,8 @@
       "output": "builds"
     },
     "files": [
-      "**/*",
-      "!**/*.ts",
-      "!**/*.tsx",
-      "!*.code-workspace",
-      "!LICENSE.md",
-      "!package.json",
-      "!package-lock.json",
-      "!src/",
-      "!e2e/",
-      "!angular.json",
-      "!_config.yml",
-      "!karma.conf.js",
-      "!tsconfig.json",
-      "!tslint.json"
+      "electrum.js",
+      "dist/**/*"
     ],
     "win": {
       "target": [
