@@ -149,7 +149,11 @@ module.exports = function (env) {
                 'REACT_APP_API_URL': API_URL[environment]
             }),
             new OfflinePlugin({
-                responseStrategy: 'cache-first'
+                responseStrategy: 'cache-first',
+                appShell: '/',
+                externals: [
+                    '/'
+                ]
             })
         ],
         devServer: {
