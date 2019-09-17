@@ -1,3 +1,5 @@
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom';
@@ -7,12 +9,13 @@ import Store from '../contexts/global'
 import "../../i18n.ts";
 import { NavHeader } from '../components/shared/header';
 import SimpleComponent from '../components/shared/component';
+OfflinePluginRuntime.install();
 
 declare global {
   var REACT_APP_API_URL:string;
 }
 
-const OtherSite = observer(() => {
+const OtherSite = hot(observer(() => {
   const { color } = React.useContext(Store);
 
   return (
@@ -21,12 +24,12 @@ const OtherSite = observer(() => {
 
       <h1>Other page</h1>
 
-      <p>Hello World!</p>
+      <p>Hello World!!!!!</p>
 
       <SimpleComponent />
     </HashRouter>
   )
-})
+}))
 
 ReactDOM.render(
     <OtherSite/>,
