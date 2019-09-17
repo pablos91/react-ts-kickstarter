@@ -2,11 +2,14 @@
   "name": "react-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "electrum.js",
   "scripts": {
     "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "build": "node node_modules/webpack/bin/webpack.js -p --env.prod",
-    "stage": "node node_modules/webpack/bin/webpack.js -p --env.stage"
+    "stage": "node node_modules/webpack/bin/webpack.js -p --env.stage",
+    "electron:serve": "electron . --serve",
+    "electron:win64": "npm run build && electron-builder build --windows --x64",
+    "electron:mac": "npm run build && electron-builder build --mac"
   },
   "author": "",
   "license": "ISC",
@@ -50,5 +53,9 @@
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.3.0"
+  },
+  "devDependencies": {
+    "electron": "^4.1.3",
+    "electron-builder": "^20.39.0"
   }
 }
