@@ -5,7 +5,7 @@ import * as ReactDOM from 'react-dom';
 import { Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import Store from '../contexts/global'
-import "../../i18n.ts";
+import "../i18n.ts";
 import { NavHeader } from '../components/shared/header';
 import MainPage from '../components/index/main';
 OfflinePluginRuntime.install({
