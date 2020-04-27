@@ -55,8 +55,11 @@ module.exports = function (env) {
             // Add '.ts' and '.tsx' as resolvable extensions.
             extensions: [".ts", ".tsx", ".js", ".json"],
             alias: {
-                'react-dom': '@hot-loader/react-dom'
-            }
+                'react-dom': '@hot-loader/react-dom',
+            },
+            modulesDirectories: [
+                'src'
+            ]
         },
 
         module: {

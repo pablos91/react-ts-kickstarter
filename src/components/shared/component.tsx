@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
-import './components.scss';
+import 'scss/components/simple';
 
-const SimpleComponent = hot(() => {
-  return(
+export const SimpleComponent = hot(() => {
+  return (
     <div className="component">
       Komponent
     </div>
   )
 })
-
-export default SimpleComponent;
