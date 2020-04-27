@@ -9,12 +9,11 @@
         "experimentalDecorators": true,
         "resolveJsonModule": true,
         // This must be specified if "paths" is set
-        "baseUrl": ".",
+        "baseUrl": "./src",
         // Relative to "baseUrl"
         "paths": {
             "*": [
-                "*",
-                "src/*"
+                "*"
             ]
         }
     },

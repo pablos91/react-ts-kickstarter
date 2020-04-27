@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
-import 'scss/components/simple';
+import 'scss/components/_simple.scss';
 
 export const SimpleComponent = hot(() => {
   return (

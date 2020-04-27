@@ -1,3 +1,4 @@
+import { SimpleComponent } from 'components/shared/component';
 import { useStores } from 'contexts';
 import { useObserver } from 'mobx-react';
 import * as React from 'react';
@@ -10,6 +11,9 @@ export const MainPage = hot(() => {
     <>
       <h1>Welcome to MainPage!</h1>
       <button onClick={globalCtx.changeColor}>Toggle color!!!!!!!!!!</button>
+
+      <SimpleComponent />
+
     </>
   ))
 })

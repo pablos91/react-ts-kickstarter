@@ -38,8 +38,7 @@ module.exports = function (env) {
         mode: environment,
 
         entry: {
-            index: "./src/pages/index.tsx",
-            otherpage: "./src/pages/othersite.tsx"
+            index: ["regenerator-runtime/runtime", "app.tsx"],
         },
 
         output: {
@@ -57,9 +56,7 @@ module.exports = function (env) {
             alias: {
                 'react-dom': '@hot-loader/react-dom',
             },
-            modulesDirectories: [
-                'src'
-            ]
+            modules: [path.resolve(__dirname, 'src'), 'node_modules']
         },
 
         module: {
