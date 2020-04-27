@@ -6,7 +6,8 @@
       "output": "builds"
     },
     "files": [
-      "electrum.js",
+      "electron.js",
+      "preload.js",
       "dist/**/*"
     ],
     "win": {

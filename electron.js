@@ -17,6 +17,7 @@ function createWindow () {
     minWidth: 480,
     minHeight: 640,
     webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false, // disable it for remotely executed code like https://app.com/index.html. load scripts with preload (https://electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content)
       webSecurity: true // cors problem is only applicable to local file execution so you can go with true when remote content is loaded
     },
