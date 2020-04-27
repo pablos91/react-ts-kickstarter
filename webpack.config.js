@@ -48,7 +48,7 @@ module.exports = function (env) {
         },
 
         // Enable sourcemaps for debugging webpack's output.
-        devtool: (production || stage) ? false : "source-map",
+        devtool: "source-map",
 
         resolve: {
             // Add '.ts' and '.tsx' as resolvable extensions.
@@ -82,22 +82,22 @@ module.exports = function (env) {
                         {
                             loader: MiniCssExtractPlugin.loader,
                             options: {
-                                hmr: !production,
+                                hmr: !(production || stage),
                             }
                         },
                         {
                             loader: "css-loader", options: {
-                                sourceMap: !production
+                                sourceMap: true
                             },
                         },
                         {
                             loader: "postcss-loader", options: {
-                                sourceMap: !production
+                                sourceMap: true
                             },
                         },
                         {
                             loader: "sass-loader", options: {
-                                sourceMap: !production
+                                sourceMap: true
                             }
                         }]
                 },
@@ -157,7 +157,7 @@ module.exports = function (env) {
                 appShell: 'index.html',
                 externals: [], // all the files that comes from outside the webpack
                 exclude: ['/api/**'], // exlude from caching an api for example
-                autoUpdate: 1000 * 60 * 2,
+                autoUpdate: 1000 * 60,
                 ServiceWorker: {
                     events: true,
                     navigateFallbackURL: '/',

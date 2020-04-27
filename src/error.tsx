@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as StackTrace from "stacktrace-js";
 
 export class ErrorBoundary extends React.Component<{}, { hasError: boolean, errorInfo: string }> {
     constructor(props) {
@@ -12,10 +13,9 @@ export class ErrorBoundary extends React.Component<{}, { hasError: boolean, erro
     }
 
     componentDidCatch(error, errorInfo) {
-        // You can also log the error to an error reporting service
-        //logErrorToMyService(error, errorInfo);
-        this.setState({ hasError: this.state.hasError, errorInfo: errorInfo });
-        console.log(JSON.stringify(errorInfo))
+        // You can do absolutely everything with the error from stacktrace.js POST it or console.log it
+        StackTrace.fromError(error)
+            .then((err) => this.setState({ ...this.state, errorInfo: JSON.stringify(err) }));
     }
 
     render() {
@@ -24,7 +24,8 @@ export class ErrorBoundary extends React.Component<{}, { hasError: boolean, erro
             return (
                 <div id="error-page">
                     <h1>There has been an error</h1>
-                    <p>{JSON.stringify(this.state.errorInfo)}</p>
+                    <p><strong>Stack trace:</strong></p>
+                    <p>{this.state.errorInfo ? this.state.errorInfo : "Loading ..."}</p>
                     <a href="/">Go back</a>
                 </div>
             )
