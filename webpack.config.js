@@ -153,11 +153,10 @@ module.exports = function (env) {
                 'REACT_APP_API_URL': API_URL[environment]
             }),
             new OfflinePlugin({
-                responseStrategy: 'cache-first',
-                appShell: '/',
-                externals: [
-                    '/'
-                ],
+                responseStrategy: production ? 'cache-first' : 'network-first',
+                appShell: 'index.html',
+                externals: [], // all the files that comes from outside the webpack
+                exclude: ['/api/**'], // exlude from caching an api for example
                 autoUpdate: 1000 * 60 * 2,
                 ServiceWorker: {
                     events: true,
