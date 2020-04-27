@@ -41,7 +41,7 @@
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.7",
     "react-i18next": "^10.11.0",
-    "react-router-dom": "^5.0.0",
+    "react-router-dom": "^5.1.2",
     "react-use-validator": "^1.0.4",
     "regenerator-runtime": "0.13.3",
     "sass-loader": "^7.1.0",

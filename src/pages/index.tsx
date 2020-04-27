@@ -21,14 +21,14 @@ const IndexPage = hot(observer(() => {
   const { globalCtx } = useStores();
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <NavHeader color={globalCtx.color}/>
 
       <Route path="/" exact component={MainPage} />
 
       <button onClick={globalCtx.changeColor}>Toggle color!!!!!!!!!!</button>
 
-    </HashRouter>
+    </BrowserRouter>
   )
 }))
 
