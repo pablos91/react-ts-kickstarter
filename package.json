@@ -8,8 +8,8 @@
     "build": "node node_modules/webpack/bin/webpack.js -p --env.prod",
     "electron-build": "node node_modules/webpack/bin/webpack.js -p --env.prod --env.electron",
     "stage": "node node_modules/webpack/bin/webpack.js -p --env.stage",
-    "electron:serve": "electron . --serve",
-    "electron:win": "npm run build && electron-builder build --windows --x64 --ia32",
+    "electron:serve": "electron . --serve --remote-debugging-port=9222",
+    "electron:win": "npm run electron-build && electron-builder build --windows --x64 --ia32",
     "electron:mac": "npm run electron-build && electron-builder build --mac"
   },
   "author": "",

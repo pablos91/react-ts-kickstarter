@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow } = require('electron');
 const url = require('url');
 const path = require('path');
 const args = process.argv.slice(1);
@@ -21,7 +21,7 @@ function createWindow () {
       nodeIntegration: false, // disable it for remotely executed code like https://app.com/index.html. load scripts with preload (https://electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content)
       webSecurity: true // cors problem is only applicable to local file execution so you can go with true when remote content is loaded
     },
-    frame: false,
+    frame: true,
     titleBarStyle: 'default'
   })
 
@@ -31,13 +31,13 @@ function createWindow () {
     mainWindow.loadURL('http://localhost:5000/');
   } else {
     // When building local app instead of remotely hosted you should use below code. Otherwise just loadURL instead.
-    // mainWindow.loadURL(url.format({
-    //   pathname: path.join(__dirname, 'dist/index.html'),
-    //   hash: 'index',
-    //   protocol: 'file:',
-    //   slashes: true
-    // }));
-    mainWindow.loadURL('https://fullnode.maple.com.pl/'); // change to your publish build endpoint
+    mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, 'dist/index.html'),
+      hash: 'index',
+      protocol: 'file:',
+      slashes: true
+    }));
+    // mainWindow.loadURL('https://fullnode.maple.com.pl/'); // change to your publish build endpoint
   }
 
   // Open the DevTools.

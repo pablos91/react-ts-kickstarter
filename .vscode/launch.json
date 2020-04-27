@@ -5,13 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "firefox",
-            "request": "attach",
-            "name": "Attach Firefox",
-            "port": 6000,
-            "url": "http://localhost:5000/",
-            "webRoot": "${workspaceFolder}",
-            "sourceMaps": "server"
+            "type": "node",
+            "request": "launch",
+            "name": "Main Process",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "windows": {
+                "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+            },
+            "program": "${workspaceRoot}/electron.js",
+            "protocol": "inspector",
+            "args": [
+                ".",
+                "--serve"
+            ],
+            "outputCapture": "std"
         },
         {
             "name": "Attach Chrome",
