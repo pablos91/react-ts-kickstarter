@@ -5,10 +5,11 @@ import * as ReactDOM from 'react-dom';
 import { Route, NavLink, BrowserRouter, HashRouter } from 'react-router-dom';
 import IndexPage from '../components/index/main';
 import { observer } from 'mobx-react-lite';
-import Store from '../contexts/global'
+import Store from '../stores/global'
 import "../i18n.ts";
 import { NavHeader } from '../components/shared/header';
 import SimpleComponent from '../components/shared/component';
+import { useStores } from '../contexts';
 OfflinePluginRuntime.install({
   onUpdateReady: () => { OfflinePluginRuntime.applyUpdate(); console.log('[SW] app updated'); }
 });
@@ -18,11 +19,11 @@ declare global {
 }
 
 const OtherSite = hot(observer(() => {
-  const { color } = React.useContext(Store);
+  const { globalCtx } = useStores();
 
   return (
     <HashRouter>
-      <NavHeader color={color}/>
+      <NavHeader color={globalCtx.color}/>
 
       <h1>Other page</h1>
 
