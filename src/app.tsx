@@ -1,5 +1,6 @@
 import { NavHeader } from 'components/shared/header';
 import { useStores } from 'contexts';
+import { ErrorBoundary } from 'error';
 import "i18n.ts";
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import { MainPage } from 'pages';
@@ -22,13 +23,15 @@ const App = hot(() => {
   const { globalCtx } = useStores();
 
   return (
-    <BrowserRouter>
-      <NavHeader />
+    <ErrorBoundary>
+      <BrowserRouter>
+        <NavHeader />
 
-      <Route path="/" exact component={MainPage} />
-      <Route path="/otherpage" exact component={OtherPage} />
+        <Route path="/" exact component={MainPage} />
+        <Route path="/otherpage" exact component={OtherPage} />
 
-    </BrowserRouter>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 })
 
