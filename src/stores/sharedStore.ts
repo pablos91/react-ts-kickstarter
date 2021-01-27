@@ -1,10 +1,11 @@
 import { observable } from "mobx";
+import React = require("react");
 
 class GlobalStore {
     @observable color = "#007bff";
 
     changeColor = () => {
-        switch(this.color) {
+        switch (this.color) {
             case "#007bff":
                 this.color = "#28a745";
                 break;
@@ -16,4 +17,7 @@ class GlobalStore {
 }
 
 const global = new GlobalStore();
-export default global;
+
+export default React.createContext({
+    globalCtx: global,
+})
