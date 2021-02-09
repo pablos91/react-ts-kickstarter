@@ -8,8 +8,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter, Route } from 'react-router-dom';
-import "scss/main.scss";
 import { NavHeader } from 'ui/shared/components/header';
+import "ui/shared/shared.scss";
 import { useStores } from 'ui/shared/sharedLogic';
 
 OfflinePluginRuntime.install({
@@ -22,7 +22,6 @@ declare global {
 
 const App = hot(() => {
   const { globalCtx } = useStores();
-
   return (
     <ErrorBoundary>
       <BrowserRouter>

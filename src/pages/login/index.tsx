@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useForm } from "react-hook-form";
 import { hot } from 'react-hot-loader/root';
-import '../../../scss/components/login.scss';
+import '../../ui/shared/shared.scss';
 
-export const LoginContainer = hot(() => {
+export const LoginPage = hot(() => {
     const { register, handleSubmit, watch, errors } = useForm();
     const onSubmit = data => console.log(data);
 

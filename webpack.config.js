@@ -135,7 +135,7 @@ module.exports = function (env) {
             }),
             new HtmlWebpackPlugin({
                 filename: 'index.html',
-                template: 'src/tpl/index.html',
+                template: 'src/public/index.html',
                 minify: production,
                 hash: production,
                 title: 'Index',
@@ -143,7 +143,7 @@ module.exports = function (env) {
             }),
             new HtmlWebpackPlugin({
                 filename: 'otherpage.html',
-                template: 'src/tpl/index.html',
+                template: 'src/public/index.html',
                 minify: production,
                 hash: production,
                 title: 'Othersite',
