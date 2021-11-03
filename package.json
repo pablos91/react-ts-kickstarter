@@ -33,7 +33,7 @@
     "react-use-validator": "^1.0.4",
     "regenerator-runtime": "0.13.3",
     "stacktrace-js": "^2.0.2",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.14.0",
