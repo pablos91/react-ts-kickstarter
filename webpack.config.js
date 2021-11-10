@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var OfflinePlugin = require('offline-plugin');
+var Dotenv = require('dotenv-webpack');
 
 var production = false;
 var stage = false;
@@ -102,7 +103,7 @@ module.exports = function (env) {
                         }]
                 },
                 {
-                    test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
+                    test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg|pdf)$/,
                     use: [
                         {
                             loader: 'file-loader',
@@ -127,6 +128,9 @@ module.exports = function (env) {
             }
         },
         plugins: [
+            new Dotenv({
+                path: `./.env.${environment}`
+            }),
             new MiniCssExtractPlugin({
                 filename: `[name].css`
             }),

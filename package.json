@@ -17,6 +17,8 @@
   "dependencies": {
     "bluebird": "^3.5.5",
     "bootstrap": "^4.6.0",
+    "dotenv-webpack": "^7.0.3",
+    "env-cmd": "^10.1.0",
     "i18next": "^13.1.5",
     "i18next-browser-languagedetector": "^2.2.4",
     "i18next-locize-backend": "^1.7.1",

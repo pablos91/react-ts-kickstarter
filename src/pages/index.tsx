@@ -10,7 +10,7 @@ export const MainPage = hot(() => {
     <>
       <h1>Welcome to MainPage!</h1>
       <button onClick={globalCtx.changeColor}>Toggle color!!!!!!!!!!</button>
-
+      <p>API_URL: {process.env.REACT_APP_API_URL}</p>
     </>
   ))
 })
