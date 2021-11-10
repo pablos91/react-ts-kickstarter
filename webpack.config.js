@@ -14,12 +14,6 @@ var getOutputPath = () => {
     return (production) ? path.resolve(__dirname, 'dist') : (stage) ? path.resolve(__dirname, 'stage') : path.resolve(__dirname, 'tmp');
 }
 
-var API_URL = {
-    production: JSON.stringify('/api'),
-    stage: JSON.stringify('/api'),
-    development: JSON.stringify('http://localhost:63155')
-}
-
 module.exports = function (env) {
     console.log(env);
 
@@ -145,17 +139,15 @@ module.exports = function (env) {
                 title: 'Index',
                 chunks: ["vendors", "commons", "index"]
             }),
-            new HtmlWebpackPlugin({
-                filename: 'otherpage.html',
-                template: 'src/public/index.html',
-                minify: production,
-                hash: production,
-                title: 'Othersite',
-                chunks: ["vendors", "commons", "otherpage"]
-            }),
-            new webpack.DefinePlugin({
-                'REACT_APP_API_URL': API_URL[environment]
-            }),
+            // if you need another entries, you have to uncomment below code and point to the entrypoint
+            // new HtmlWebpackPlugin({
+            //     filename: 'otherpage.html',
+            //     template: 'src/public/index.html',
+            //     minify: production,
+            //     hash: production,
+            //     title: 'Othersite',
+            //     chunks: ["vendors", "commons", "otherpage"]
+            // }),
             new OfflinePlugin({
                 responseStrategy: production ? 'cache-first' : 'network-first',
                 appShell: 'index.html',

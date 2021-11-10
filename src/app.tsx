@@ -16,10 +16,6 @@ OfflinePluginRuntime.install({
   onUpdateReady: () => { OfflinePluginRuntime.applyUpdate(); console.log('[SW] app updated'); }
 });
 
-declare global {
-  var REACT_APP_API_URL: string;
-}
-
 const App = hot(() => {
   const { globalCtx } = useStores();
   return (
