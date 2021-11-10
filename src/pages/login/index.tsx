@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { useForm } from "react-hook-form";
-import { hot } from 'react-hot-loader/root';
 import '../../ui/shared/shared.scss';
 
-export const LoginPage = hot(() => {
+export const LoginPage = () => {
     const { register, handleSubmit, watch, errors } = useForm();
     const onSubmit = data => console.log(data);
 
@@ -24,4 +23,4 @@ export const LoginPage = hot(() => {
             </form>
         </div>
     )
-})
+}

@@ -1,10 +1,9 @@
 import { useObserver } from 'mobx-react';
 import * as React from 'react';
-import { hot } from 'react-hot-loader/root';
 import { NavLink } from 'react-router-dom';
 import { useStores } from '../sharedLogic';
 
-export const NavHeader = hot(() => {
+export const NavHeader = () => {
 
     const { globalCtx } = useStores();
 
@@ -18,4 +17,4 @@ export const NavHeader = hot(() => {
 
         </header>
     ))
-})
+}

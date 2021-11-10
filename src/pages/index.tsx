@@ -1,9 +1,8 @@
 import { useObserver } from 'mobx-react';
 import * as React from 'react';
-import { hot } from 'react-hot-loader/root';
 import { useStores } from '../ui/shared/sharedLogic';
 
-export const MainPage = hot(() => {
+export const MainPage = () => {
   const { globalCtx } = useStores();
 
   return useObserver(() => (
@@ -13,4 +12,4 @@ export const MainPage = hot(() => {
       <p>API_URL: {process.env.REACT_APP_API_URL}</p>
     </>
   ))
-})
+}
