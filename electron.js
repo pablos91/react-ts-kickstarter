@@ -9,7 +9,7 @@ const serve = args.some(val => val === "--serve" || val === "-serve");
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
@@ -26,14 +26,14 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  if(serve) {
+  if (serve) {
     //require('electron-reload')(__dirname);
     mainWindow.loadURL('http://localhost:5000/');
   } else {
     // When building local app instead of remotely hosted you should use below code. Otherwise just loadURL instead.
     mainWindow.loadURL(url.format({
       pathname: path.join(__dirname, 'dist/index.html'),
-      hash: 'index',
+      hash: '',
       protocol: 'file:',
       slashes: true
     }));
