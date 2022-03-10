@@ -2,35 +2,24 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var OfflinePlugin = require('offline-plugin');
 var Dotenv = require('dotenv-webpack');
 
-var production = false;
-var stage = false;
-var electron = false;
-var environment = 'development';
+var production = process.env.NODE_ENV == "production";
 
 var getOutputPath = () => {
-    return (production) ? path.resolve(__dirname, 'dist') : (stage) ? path.resolve(__dirname, 'stage') : path.resolve(__dirname, 'tmp');
+    return (production) ? path.resolve(__dirname, 'dist') : path.resolve(__dirname, 'tmp');
 }
 
-module.exports = function (env) {
-    console.log(env);
+module.exports = ({ target, electron }) => {
 
-    if (typeof (env) != 'undefined') {
-        production = env.prod;
-        stage = env.stage;
-        electron = env.electron;
-        environment = env.stage ? 'stage' : 'production';
-        console.log(`Starting ${environment} build ...`);
-    } else {
-        console.log(`Starting development server ...`);
-    }
+    let environment = target ?? "development";
+
+    console.log(`Starting ${process.env.NODE_ENV} build for ${environment} environment ...`);
 
     return {
 
         target: electron ? 'electron-renderer' : 'web',
-        mode: environment,
+        mode: production ? "production" : "development",
 
         entry: {
             index: ["regenerator-runtime/runtime", "app.tsx"],
@@ -39,7 +28,7 @@ module.exports = function (env) {
         output: {
             filename: "[name].js",
             path: getOutputPath(),
-            jsonpFunction: 'customJsonp',
+            //: 'customJsonp',
         },
 
         // Enable sourcemaps for debugging webpack's output.
@@ -73,12 +62,8 @@ module.exports = function (env) {
                 {
                     test: /\.(css|scss)$/,
                     use: [
-                        'css-hot-loader',
                         {
-                            loader: MiniCssExtractPlugin.loader,
-                            options: {
-                                hmr: !(production || stage),
-                            }
+                            loader: MiniCssExtractPlugin.loader
                         },
                         {
                             loader: "css-loader", options: {
@@ -98,14 +83,10 @@ module.exports = function (env) {
                 },
                 {
                     test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg|pdf)$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                outputPath: './content/'
-                            }
-                        }
-                    ]
+                    type: 'asset/resource',
+                    generator: {
+                        filename: 'content/[name].[hash][ext]'
+                    }
                 }
             ]
         },
@@ -147,22 +128,12 @@ module.exports = function (env) {
             //     hash: production,
             //     title: 'Othersite',
             //     chunks: ["vendors", "commons", "otherpage"]
-            // }),
-            new OfflinePlugin({
-                responseStrategy: production ? 'cache-first' : 'network-first',
-                appShell: 'index.html',
-                externals: [], // all the files that comes from outside the webpack
-                exclude: ['/api/**'], // exlude from caching an api for example
-                autoUpdate: 1000 * 60,
-                ServiceWorker: {
-                    events: true,
-                    navigateFallbackURL: '/',
-                },
-                AppCache: false
-            })
+            // })
         ],
         devServer: {
-            contentBase: path.join(__dirname, 'tmp'),
+            static: {
+                directory: path.join(__dirname, 'tmp'),
+            },
             host: 'localhost',
             hot: true,
             port: 5000,

@@ -1,6 +1,5 @@
 import { ErrorBoundary } from 'error';
 import "i18n.ts";
-import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 import { MainPage } from 'pages';
 import { LoginPage } from 'pages/login';
 import { OtherPage } from 'pages/other';
@@ -11,10 +10,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { NavHeader } from 'ui/shared/components/header';
 import "ui/shared/shared.scss";
 import { useStores } from 'ui/shared/sharedLogic';
-
-OfflinePluginRuntime.install({
-  onUpdateReady: () => { OfflinePluginRuntime.applyUpdate(); console.log('[SW] app updated'); }
-});
 
 const App = hot(() => {
   const { globalCtx } = useStores();
