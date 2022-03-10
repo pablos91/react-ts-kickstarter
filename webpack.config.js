@@ -12,9 +12,9 @@ var getOutputPath = () => {
 
 module.exports = ({ target, electron }) => {
 
-    let environment = target ?? "development";
+    let environment = production ? target ?? "production" : "development";
 
-    console.log(`Starting ${process.env.NODE_ENV} build for ${environment} environment ...`);
+    console.log(`Starting ${process.env.NODE_ENV ?? "development"} build for ${environment} environment ...`);
 
     return {
 
