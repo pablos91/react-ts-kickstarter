@@ -5,3 +5,4 @@ dist
 stage
 npm-debug.log
 builds
+.DS_Store
