@@ -20,7 +20,7 @@ const App = hot(() => {
 
           <Route path="/" exact component={MainPage} />
           <Route path="/login" exact component={LoginPage} />
-          <Route path="/otherpage" exact component={OtherPage} />
+          <Route path="/otherpage/:id?" component={OtherPage} />
         </SampleContextProvider>
       </HashRouter>
     </ErrorBoundary>

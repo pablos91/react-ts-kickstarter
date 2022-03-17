@@ -3,7 +3,7 @@ import * as React from 'react';
 
 export const MainPage = () => {
 
-  const { dispatch } = useSampleContext();
+  const [{ }, dispatch] = useSampleContext();
 
   return (
     <>

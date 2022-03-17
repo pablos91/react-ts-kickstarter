@@ -1,15 +1,14 @@
 import { useSampleContext } from 'contexts/sampleContext';
 import * as React from 'react';
-import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+
+interface NavHeaderProps {
+    title: string;
+}
 
 export const NavHeader = () => {
 
-    const { backgroundColor } = useSampleContext();
-
-    useEffect(() => {
-        console.log(backgroundColor)
-    }, [backgroundColor])
+    const [{ backgroundColor }] = useSampleContext();
 
     return (
         <header style={{ "backgroundColor": backgroundColor }}>
@@ -17,7 +16,7 @@ export const NavHeader = () => {
             {/* remember to use require when linking to binaries. webpack will make proper transformations to it */}
             <NavLink to="/">Strona główna</NavLink>
             <NavLink to="/login">Login</NavLink>
-            <NavLink to="/otherpage">Inna strona</NavLink>
+            <NavLink to="/otherpage/1234">Inna strona</NavLink>
 
         </header>
     )

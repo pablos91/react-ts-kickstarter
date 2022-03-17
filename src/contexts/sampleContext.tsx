@@ -2,14 +2,12 @@ import React, { createContext, useContext, useReducer } from "react";
 
 const SampleContext = createContext({} as SampleContextType);
 
-export interface SampleContextType extends SampleState {
-  dispatch: React.Dispatch<Action>;
-}
-
-export interface SampleState {
+interface SampleState {
   isLoading: boolean;
   backgroundColor: string;
 }
+
+type SampleContextType = [SampleState, React.Dispatch<Action>]
 
 interface Action {
   type: "loading" | "loaded" | "changeColor";
@@ -39,39 +37,21 @@ const SampleContextProvider = ({ children }: { children?: any }) => {
         return { ...state, isLoading: false };
       case 'changeColor':
         return { ...state, backgroundColor: getColorCode() };
+      default:
+        return state;
     }
   }
 
-  const [{ isLoading, backgroundColor }, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <SampleContext.Provider value={{ isLoading, backgroundColor, dispatch } as SampleContextType}>
+    <SampleContext.Provider value={[state, dispatch] as SampleContextType}>
       {children}
     </SampleContext.Provider>
   );
 };
 
-const withSample = <P extends SampleContextType>(Child: React.ComponentType<P>): React.FunctionComponent<P> => (props) => (
-  <SampleContext.Consumer>
-    {(context) => <Child {...props} {...context} />}
-  </SampleContext.Consumer>
-);
 
-export { SampleContextProvider, withSample };
-export const useSampleContext = () => useContext(SampleContext);
+const useSampleContext = () => useContext(SampleContext);
+export { SampleContextProvider, useSampleContext };
 
-// usage:
-
-// **** HOOK (WARNING! you can only use inside of nested components with Provider rendered. Use below HoC or Classic Way once for the parent component)
-// const {age, name} = useSample();
-
-// **** HoC
-// withSample(({age, name}) => (<div></div>))
-
-// **** Classic way
-// ReactDOM.render(
-//   <CalendarContextProvider>
-//       <App />
-//   </CalendarContextProvider>,
-// document.getElementById("root")
-// );
