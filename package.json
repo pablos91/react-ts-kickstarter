@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
-    "bluebird": "^3.5.5",
+    "bluebird": "^3.7.2",
     "bootstrap": "^4.6.0",
     "dotenv-webpack": "^7.0.3",
     "env-cmd": "^10.1.0",
@@ -35,9 +35,12 @@
     "regenerator-runtime": "0.13.3",
     "stacktrace-js": "^2.0.2",
     "validator": "^13.7.0",
+    "whatwg-fetch": "^3.6.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.7",
+    "@babel/preset-env": "^7.16.11",
     "@hot-loader/react-dom": "^16.14.0",
     "@types/jest": "^27.4.1",
     "@types/node": "^11.15.44",
@@ -45,6 +48,8 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router-dom": "^4.3.5",
     "autoprefixer": "^9.8.6",
+    "babel-loader": "^8.2.3",
+    "core-js": "^3.21.1",
     "css-hot-loader": "^1.4.4",
     "css-loader": "^6.7.1",
     "electron": "^17",

@@ -36,10 +36,10 @@ export const LoginPage = () => {
     return (
         <div className="login">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("email")} />
+                <input key="email" {...register("email")} />
                 {errors.email && <span>{errors.email.message}</span>}
 
-                <input {...register("password")} />
+                <input key="password" {...register("password")} />
                 {errors.password && <span>{errors.password.message}</span>}
 
                 <input type="submit" />

@@ -22,7 +22,7 @@ module.exports = ({ target, electron }) => {
         mode: production ? "production" : "development",
 
         entry: {
-            index: ["regenerator-runtime/runtime", "app.tsx"],
+            index: ["whatwg-fetch", "core-js/actual", "regenerator-runtime/runtime", "app.tsx"],
         },
 
         output: {
@@ -42,6 +42,8 @@ module.exports = ({ target, electron }) => {
             },
             modules: [path.resolve(__dirname, 'src'), 'node_modules']
         },
+
+        target: ['web', 'es5'],
 
         module: {
             rules: [
@@ -87,6 +89,21 @@ module.exports = ({ target, electron }) => {
                     generator: {
                         filename: 'content/[name].[hash][ext]'
                     }
+                },
+                {
+                    test: /\.m?js$/,
+                    //exclude: /node_modules/,
+                    include: [
+                        path.resolve(__dirname, "node_modules/yup"),
+                        path.resolve(__dirname, "node_modules/react-hook-form")
+                    ],
+                    use: [{
+                        loader: "babel-loader", options: {
+                            cacheDirectory: true,
+                            presets: ['@babel/preset-env'],
+                            plugins: ["@babel/plugin-transform-arrow-functions"]
+                        },
+                    }]
                 }
             ]
         },
@@ -109,9 +126,6 @@ module.exports = ({ target, electron }) => {
             new MiniCssExtractPlugin({
                 filename: `[name].css`
             }),
-            // new webpack.ProvidePlugin({
-            //     Promise: "bluebird"
-            // }),
             new HtmlWebpackPlugin({
                 filename: 'index.html',
                 template: 'src/public/index.html',
@@ -138,7 +152,7 @@ module.exports = ({ target, electron }) => {
             hot: true,
             //port: 5000,
             historyApiFallback: true,
-            open: 'http://localhost:5000'
+            open: true
         }
     }
 }
