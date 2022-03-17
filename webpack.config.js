@@ -109,9 +109,9 @@ module.exports = ({ target, electron }) => {
             new MiniCssExtractPlugin({
                 filename: `[name].css`
             }),
-            new webpack.ProvidePlugin({
-                Promise: "bluebird"
-            }),
+            // new webpack.ProvidePlugin({
+            //     Promise: "bluebird"
+            // }),
             new HtmlWebpackPlugin({
                 filename: 'index.html',
                 template: 'src/public/index.html',
