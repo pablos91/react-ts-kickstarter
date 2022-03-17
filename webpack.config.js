@@ -12,9 +12,9 @@ var getOutputPath = () => {
 
 module.exports = ({ target, electron }) => {
 
-    let environment = production ? target ?? "production" : "development";
+    let environment = production ? target ? target : "production" : "development";
 
-    console.log(`Starting ${process.env.NODE_ENV ?? "development"} build for ${environment} environment ...`);
+    console.log(`Starting ${process.env.NODE_ENV} build for ${environment} environment ...`);
 
     return {
 
@@ -136,7 +136,7 @@ module.exports = ({ target, electron }) => {
             },
             host: 'localhost',
             hot: true,
-            port: 5000,
+            //port: 5000,
             historyApiFallback: true,
             open: 'http://localhost:5000'
         }

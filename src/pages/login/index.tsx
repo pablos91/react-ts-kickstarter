@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useForm } from "react-hook-form";
-import '../../ui/shared/shared.scss';
+import './login.scss';
 
 export const LoginPage = () => {
     const { register, handleSubmit, watch, errors } = useForm();

@@ -1,3 +1,5 @@
+import { NavHeader } from 'components/header';
+import { SampleContextProvider } from 'contexts/sampleContext';
 import { ErrorBoundary } from 'error';
 import "i18n.ts";
 import { MainPage } from 'pages';
@@ -7,21 +9,19 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import { HashRouter, Route } from 'react-router-dom';
-import { NavHeader } from 'ui/shared/components/header';
-import "ui/shared/shared.scss";
-import { useStores } from 'ui/shared/sharedLogic';
+import "./app.scss";
 
 const App = hot(() => {
-  const { globalCtx } = useStores();
   return (
     <ErrorBoundary>
       <HashRouter>
-        <NavHeader />
+        <SampleContextProvider>
+          <NavHeader />
 
-        <Route path="/" exact component={MainPage} />
-        <Route path="/login" exact component={LoginPage} />
-        <Route path="/otherpage" exact component={OtherPage} />
-
+          <Route path="/" exact component={MainPage} />
+          <Route path="/login" exact component={LoginPage} />
+          <Route path="/otherpage" exact component={OtherPage} />
+        </SampleContextProvider>
       </HashRouter>
     </ErrorBoundary>
   )

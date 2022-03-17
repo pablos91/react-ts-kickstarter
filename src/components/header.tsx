@@ -1,14 +1,18 @@
-import { useObserver } from 'mobx-react';
+import { useSampleContext } from 'contexts/sampleContext';
 import * as React from 'react';
+import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useStores } from '../sharedLogic';
 
 export const NavHeader = () => {
 
-    const { globalCtx } = useStores();
+    const { backgroundColor } = useSampleContext();
 
-    return useObserver(() => (
-        <header style={{ "background": globalCtx.color }}>
+    useEffect(() => {
+        console.log(backgroundColor)
+    }, [backgroundColor])
+
+    return (
+        <header style={{ "backgroundColor": backgroundColor }}>
             <img src={require('images/logo.png')} className="logo" />
             {/* remember to use require when linking to binaries. webpack will make proper transformations to it */}
             <NavLink to="/">Strona główna</NavLink>
@@ -16,5 +20,5 @@ export const NavHeader = () => {
             <NavLink to="/otherpage">Inna strona</NavLink>
 
         </header>
-    ))
+    )
 }
