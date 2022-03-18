@@ -11,7 +11,8 @@
     "electron:build": "webpack --node-env production --env electron=true",
     "electron:serve": "electron . --serve --remote-debugging-port=9222",
     "electron:win": "npm run electron:build && electron-builder build --windows --x64 --ia32",
-    "electron:mac": "npm run electron:build && electron-builder build --mac"
+    "electron:mac": "npm run electron:build && electron-builder build --mac",
+    "electron:mac64": "npm run electron:build && arch -x86_64 electron-builder build --mac"
   },
   "author": "",
   "license": "ISC",
@@ -54,7 +55,7 @@
     "css-hot-loader": "^1.4.4",
     "css-loader": "^6.7.1",
     "electron": "^17",
-    "electron-builder": "^22.14.13",
+    "electron-builder": "^23.0.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.0",
