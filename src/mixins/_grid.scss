@@ -1,0 +1,89 @@
+@import "variables";
+
+@mixin sm {
+    @media (min-width: #{$breakpoint-sm}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (min-width: #{$breakpoint-md}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (min-width: #{$breakpoint-lg}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (min-width: #{$breakpoint-xl}) {
+        @content;
+    }
+}
+
+@mixin grid-base-style($columns: "4") {
+    display: grid;
+    grid-template-columns: repeat(#{$columns}, minmax(0, 1fr));
+}
+
+@mixin grid-spacing($columnGap: false, $rowGap: false) {
+    @if $columnGap {
+        grid-column-gap: $space-75;
+    }
+
+    @if $rowGap {
+        grid-row-gap: $space-75;
+    }
+}
+
+@mixin grid-spacing-md($columnGap: false, $rowGap: false) {
+    @if $columnGap {
+        grid-column-gap: $space-100;
+    }
+
+    @if $rowGap {
+        grid-row-gap: $space-100;
+    }
+}
+
+@mixin grid-spacing-lg($columnGap: false, $rowGap: false) {
+    @if $columnGap {
+        grid-column-gap: $space-125;
+    }
+
+    @if $rowGap {
+        grid-row-gap: $space-125;
+    }
+}
+
+// grid-template-rows are added for the ie11 autoprefixer autoplace,
+// if you want to create more advanced grids you would like to remove this
+// and remove grid property from webpack.config.js:83
+// you'll loose ie11 grid support though
+
+@mixin grid-container($xs: 1, $sm: 3, $md: 6, $lg: 12, $columnGap: false, $rowGap: false) {
+    @include grid-base-style($xs);
+    @include grid-spacing($columnGap, $rowGap);
+    grid-template-rows: repeat(1, auto);
+
+    @include sm {
+        grid-template-rows: repeat(1, auto);
+        grid-template-columns: repeat(#{$sm}, minmax(0, 1fr));
+        @include grid-spacing-md($columnGap, $rowGap);
+    }
+
+    @include md {
+        grid-template-rows: repeat(1, auto);
+        grid-template-columns: repeat(#{$md}, minmax(0, 1fr));
+        @include grid-spacing-md($columnGap, $rowGap);
+    }
+
+    @include lg {
+        grid-template-rows: repeat(1, auto);
+        grid-template-columns: repeat(#{$lg}, minmax(0, 1fr));
+        @include grid-spacing-lg($columnGap, $rowGap);
+    }
+}

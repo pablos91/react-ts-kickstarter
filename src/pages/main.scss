@@ -1,0 +1,18 @@
+@import "mixins/grid";
+
+.main-page-container {
+    padding: 1em;
+    @include grid-container();
+
+    .greetings-container {
+        @include lg {
+            grid-column: 1/5;
+        }
+    }
+
+    .additional-info-container {
+        @include lg {
+            grid-column: 5/12;
+        }
+    }
+}
