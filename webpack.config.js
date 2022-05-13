@@ -6,8 +6,8 @@ var Dotenv = require('dotenv-webpack');
 
 var production = process.env.NODE_ENV == "production";
 
-var getOutputPath = () => {
-    return (production) ? path.resolve(__dirname, 'dist') : path.resolve(__dirname, 'tmp');
+var getOutputPath = (env) => {
+    return (production) ? env == "stage" ? path.resolve(__dirname, 'stage') : path.resolve(__dirname, 'dist') : path.resolve(__dirname, 'tmp');
 }
 
 module.exports = ({ target, electron }) => {
@@ -27,7 +27,7 @@ module.exports = ({ target, electron }) => {
 
         output: {
             filename: "[name].js",
-            path: getOutputPath(),
+            path: getOutputPath(environment),
             //: 'customJsonp',
         },
 
