@@ -1,0 +1,32 @@
+@import "mixins/grid";
+
+.login-page-container {
+    padding: 1em;
+    @include grid-container();
+
+    .greetings-container {
+        @include lg {
+            grid-column: 1/5;
+        }
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        @include lg {
+            grid-column: 5/8;
+        }
+
+        .form-input {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5rem 0;
+        }
+    }
+
+    .error-msg {
+        color: red;
+        display: flex;
+        align-items: center;
+    }
+}

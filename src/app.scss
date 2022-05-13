@@ -1,6 +1,5 @@
-//bootstrap variables
-$primary: red;
+@import "~normalize.css/normalize.css";
 
-
-//importing bootstrap
-@import "~bootstrap/scss/bootstrap";
+* {
+    box-sizing: border-box;
+}

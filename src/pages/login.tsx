@@ -29,7 +29,7 @@ export const LoginPage = () => {
     const { register, control, handleSubmit, watch, setError, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema)
     });
-    const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+    const { fields, append } = useFieldArray({
         control, // control props comes from useForm (optional: if you are using FormContext)
         name: "consents", // unique name for your Field Array
     });
@@ -63,26 +63,36 @@ export const LoginPage = () => {
     console.log(watch("email"));
 
     return (
-        <div className="login">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input key="email" {...register("email")} />
-                {errors.email && <span>{errors.email.message}</span>}
+        <div className="login-page-container">
+            <div className="greetings-container">
+                <h1>Welcome to LoginPage!</h1>
+            </div>
+            <form className='form-container' onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-input">
+                    <label htmlFor='email'>Email:</label>
+                    <input id="email" {...register("email")} />
+                    {errors.email && <span className='error-msg'>{errors.email.message}</span>}
+                </div>
 
-                <input key="password" {...register("password")} />
-                {errors.password && <span>{errors.password.message}</span>}
+                <div className="form-input">
+                    <label htmlFor='password'>Password:</label>
+                    <input id="password" {...register("password")} />
+                    {errors.password && <span className='error-msg'>{errors.password.message}</span>}
+                </div>
 
-                {fields.map((field: Record<"id" | "consentText" | "isRequired", any>, index) => (
-                    <label key={field.id}>
-                        <input
-                            type="checkbox"
-                            {...register(`consents.${index}.consentValue`)}
-                        />
-                        {field.consentText}{field.isRequired && "*"}
-                        {errors.consents?.[index] && <span>{errors.consents?.[index].consentValue.message}</span>}
-                    </label>
+                <div className="form-input">
+                    {fields.map((field: Record<"id" | "consentText" | "isRequired", any>, index) => (
+                        <label key={field.id}>
+                            <input
+                                type="checkbox"
+                                {...register(`consents.${index}.consentValue`)}
+                            />
+                            {field.consentText}{field.isRequired && "*"}
+                            {errors.consents?.[index] && <span className='error-msg'>{errors.consents?.[index].consentValue.message}</span>}
+                        </label>
 
-                ))}
-
+                    ))}
+                </div>
                 <input type="submit" />
             </form>
         </div>

@@ -73,8 +73,19 @@ module.exports = ({ target, electron }) => {
                             },
                         },
                         {
-                            loader: "postcss-loader", options: {
-                                sourceMap: true
+                            loader: "postcss-loader",
+                            options: {
+                                postcssOptions: {
+                                    plugins: [
+                                        [
+                                            "autoprefixer",
+                                            {
+                                                grid: "autoplace",
+                                                remove: false
+                                            },
+                                        ],
+                                    ],
+                                },
                             },
                         },
                         {
@@ -95,6 +106,7 @@ module.exports = ({ target, electron }) => {
                     //exclude: /node_modules/,
                     include: [
                         path.resolve(__dirname, "node_modules/yup"),
+                        path.resolve(__dirname, "node_modules/react-router"),
                         path.resolve(__dirname, "node_modules/react-hook-form")
                     ],
                     use: [{
