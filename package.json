@@ -32,6 +32,9 @@
   },
   "author": "",
   "license": "ISC",
+  "resolutions": {
+    "@types/react": "~17.0.21"
+  },
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
     "dotenv-webpack": "^7.0.3",
@@ -64,7 +67,7 @@
     "@types/enzyme": "^3.10.12",
     "@types/jest": "^27.4.1",
     "@types/node": "^11.15.44",
-    "@types/react": "^16.14.2",
+    "@types/react": "16.14.2",
     "@types/react-dom": "^16.9.10",
     "autoprefixer": "^10",
     "babel-jest": "^28.1.0",
