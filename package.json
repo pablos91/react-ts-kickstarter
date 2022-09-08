@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "electron.js",
+  "engines": {
+    "node": ">=16.14.0"
+  },
   "scripts": {
     "analyze": "source-map-explorer --only-mapped 'dist/*.js'",
     "start": "webpack serve --open",
