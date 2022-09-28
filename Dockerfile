@@ -1,11 +1,12 @@
-﻿FROM node:12-buster as builder
+﻿FROM node:16-buster as builder
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 ENV NODE_ENV=production
 
 COPY package.json /usr/src/app/package.json
-RUN npm install --only=dev && npm install
+COPY yarn.lock /usr/src/app/yarn.lock
+RUN yarn
 
 COPY . /usr/src/app
 RUN npm run build 
