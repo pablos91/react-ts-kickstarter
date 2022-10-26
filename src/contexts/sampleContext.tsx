@@ -1,18 +1,20 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, PropsWithChildren, useContext, useReducer } from "react";
 
 const SampleContext = createContext({} as SampleContextType);
 
-interface SampleState {
+interface IMutableState {
   isLoading: boolean;
   backgroundColor: string;
 }
 
-type SampleContextType = [SampleState, React.Dispatch<Action>]
+type SampleContextType = [IMutableState, Action]
 
-interface Action {
-  type: "loading" | "loaded" | "changeColor";
-  payload?: any;
+interface IActionUpdate<K extends keyof IMutableState> {
+  type: K | "changeColor";
+  payload?: IMutableState[K];
 }
+
+type Action = <K extends keyof IMutableState>(action: IActionUpdate<K>) => void
 
 function getColorCode() {
   var makeColorCode = '0123456789ABCDEF';
@@ -23,18 +25,18 @@ function getColorCode() {
   return code;
 }
 
-/// https://github.com/Microsoft/TypeScript/issues/6471
-const SampleContextProvider = ({ children }: { children?: any }) => {
+
+const SampleContextProvider = ({ children }: PropsWithChildren<{}>) => {
   // u can use MobX, useState, useReducer here. Whatever suits your needs. Just put it in value of Provider.
 
-  const initialState: SampleState = { isLoading: false, backgroundColor: "#000" };
+  const initialState: IMutableState = { isLoading: false, backgroundColor: "#000" };
 
-  function reducer(state: SampleState, action: Action) {
+  const reducer = <K extends keyof IMutableState>(state: IMutableState, action: IActionUpdate<K>) => {
     switch (action.type) {
-      case 'loading':
-        return { ...state, isLoading: true };
-      case 'loaded':
-        return { ...state, isLoading: false };
+      case 'isLoading':
+        return { ...state, isLoading: action.payload };
+      case 'backgroundColor':
+        return { ...state, backgroundColor: action.payload }
       case 'changeColor':
         return { ...state, backgroundColor: getColorCode() };
       default:
