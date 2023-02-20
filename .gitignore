@@ -6,3 +6,4 @@ stage
 npm-debug.log
 builds
 .DS_Store
+*.module.scss.d.ts

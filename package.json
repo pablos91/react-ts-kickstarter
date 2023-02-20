@@ -66,6 +66,7 @@
     "@babel/preset-env": "^7.16.11",
     "@hot-loader/react-dom": "^16.14.0",
     "@jest/types": "^28.1.0",
+    "@teamsupercell/typings-for-css-modules-loader": "^2.5.2",
     "@testing-library/react": "^13.2.0",
     "@types/enzyme": "^3.10.12",
     "@types/jest": "^27.4.1",

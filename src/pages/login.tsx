@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import './login.scss';
+import styles from './login.module.scss';
 
 const validationSchema = yup.object().shape({
     email: yup
@@ -65,7 +66,7 @@ export const LoginPage = () => {
     return (
         <div className="login-page-container">
             <div className="greetings-container">
-                <h1>Welcome to LoginPage!</h1>
+                <h1 className={styles.moduleClass}>Welcome to LoginPage!</h1>
             </div>
             <form className='form-container' onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-input">
